@@ -1,6 +1,9 @@
-﻿using Common.Utilities;
+﻿using Bussiness.Implementations;
+using Bussiness.Interfaces;
+using Common.Utilities;
 using Data.Common;
-using Data.ModelData;
+using Data.Implementations;
+using Data.Interfaces;
 
 namespace Contabilidad_api.App_Start
 {
@@ -11,17 +14,17 @@ namespace Contabilidad_api.App_Start
             services.AddMvc(options => options.EnableEndpointRouting = false);
             HelperConfiguration.Configuration = Configuration;
 
-            services.AddScoped<Data.Common.SpDbContext>();
+            services.AddScoped<SpDbContext>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(ILoggerSp<>), typeof(LoggerSp<>));
             services.AddScoped(typeof(IExceptionHandle), typeof(ExceptionHandle));
 
 
 
-            //Business
-
-            //Data
-
+            //FACADE OBJECTS
+            services.AddScoped(typeof(IPersonaBussines), typeof(PersonaBussines));
+            //DATA ACCESS OBJECTS
+            services.AddScoped(typeof(IPersonaDAO), typeof(PersonaDAO));
         }
     }
 }

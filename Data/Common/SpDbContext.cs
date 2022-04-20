@@ -6,7 +6,7 @@ namespace Data.Common
 {
     public partial class SpDbContext
     {
-        protected void OnConfiguring(DbContextOptionsBuilder optionBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
         {
             if (!optionBuilder.IsConfigured)
             {
