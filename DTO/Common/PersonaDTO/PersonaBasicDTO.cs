@@ -1,8 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace DTO.Common.PersonaDTO
+﻿namespace DTO.Common.PersonaDTO
 {
-    public class PersonaDTO
+    public class PersonaBasicDTO
     {
         public long Id { get; set; }
         public string Nombre1 { get; set; }
@@ -12,8 +10,6 @@ namespace DTO.Common.PersonaDTO
         public long IdTipoDocumento { get; set; }
         public string NumeroDocumento { get; set; }
         public string? UrlFoto { get; set; }
-        [EmailAddress]
         public string Email { get; set; }
-        public string Password { get; set; }
     }
 }

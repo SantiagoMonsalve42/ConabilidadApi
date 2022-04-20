@@ -13,9 +13,9 @@ namespace Bussiness.Implementations
             PersonaDAO = personaDAO ?? throw new ArgumentNullException(nameof(personaDAO)); ;
         }
 
-        public async Task<PersonaDTO> create(PersonaDTO request)
+        public async Task<PersonaBasicDTO> create(PersonaDTO request)
         {
-            PersonaDTO response = await PersonaDAO.create(request);
+            PersonaBasicDTO response = await PersonaDAO.create(request);
             return response;
         }
 
@@ -25,21 +25,21 @@ namespace Bussiness.Implementations
             return response;
         }
 
-        public async Task<PersonaDTO> get(PersonaByIdDTO request)
+        public async Task<PersonaBasicDTO> get(PersonaByIdDTO request)
         {
-            PersonaDTO response = await PersonaDAO.get(request);
+            PersonaBasicDTO response = await PersonaDAO.get(request);
             return response;
         }
 
-        public async Task<ICollection<PersonaDTO>> getAll()
+        public async Task<ICollection<PersonaBasicDTO>> getAll()
         {
-            ICollection<PersonaDTO> response = await PersonaDAO.getAll();
+            ICollection<PersonaBasicDTO> response = await PersonaDAO.getAll();
             return response;
         }
 
-        public async Task<PersonaDTO> update(PersonaPutPhotoDTO request)
+        public async Task<PersonaBasicDTO> update(PersonaPutPhotoDTO request)
         {
-            PersonaDTO response = await PersonaDAO.update(request);
+            PersonaBasicDTO response = await PersonaDAO.update(request);
             return response;
         }
     }

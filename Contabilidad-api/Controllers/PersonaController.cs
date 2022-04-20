@@ -17,19 +17,19 @@ namespace Contabilidad_api.Controllers
         [HttpPost]
         public async Task<ActionResult> getAll()
         {
-            ICollection<PersonaDTO> response = await PersonaBussines.getAll();
+            ICollection<PersonaBasicDTO> response = await PersonaBussines.getAll();
             return await GetReponseAnswer(response);
         }
         [HttpPost]
         public async Task<ActionResult> get(PersonaByIdDTO request)
         {
-            PersonaDTO response = await PersonaBussines.get(request);
+            PersonaBasicDTO response = await PersonaBussines.get(request);
             return await GetReponseAnswer(response);
         }
         [HttpPost]
         public async Task<ActionResult> create(PersonaDTO request)
         {
-            PersonaDTO response = await PersonaBussines.create(request);
+            PersonaBasicDTO response = await PersonaBussines.create(request);
             return await GetReponseAnswer(response);
         }
         [HttpPut]
@@ -39,7 +39,7 @@ namespace Contabilidad_api.Controllers
             {
                 return BadRequest("Los ids no coinciden");
             }
-            PersonaDTO response = await PersonaBussines.update(request);
+            PersonaBasicDTO response = await PersonaBussines.update(request);
             return await GetReponseAnswer(response);
         }
         [HttpDelete]

@@ -16,38 +16,44 @@ namespace Data.Implementations
             Repo = repo ?? throw new ArgumentNullException(nameof(repo));
         }
 
-        public async Task<PersonaDTO> create(PersonaDTO request)
+        public async Task<PersonaBasicDTO> create(PersonaDTO request)
         {
+            Persona rowExists = (from row in Repo.Entity where row.Email == request.Email  select row).FirstOrDefault();
+            if(rowExists != null)
+            {
+                throw new Exception("El usuario ya existe");
+            }
             Persona createObject = request.Clone<PersonaDTO,Persona>();
+            createObject.Password = Util.GetSHA256(createObject.Password);
             Persona createdObject = await Repo.CreateAsync(createObject);
-            PersonaDTO response = createdObject.Clone<Persona,PersonaDTO>();
+            PersonaBasicDTO response = createdObject.Clone<Persona, PersonaBasicDTO>();
             return response;
         }
 
         public async Task<bool> Delete(PersonaByIdDTO request)
         {
-            Persona rowExists = (from row in Repo.Entity  where row.Id == request.Id select row).FirstOrDefault();
+            Persona rowExists = (from row in Repo.Entity where row.Id == request.Id select row).FirstOrDefault();
             if(rowExists == null)
                 return false;
             await Repo.Delete(rowExists);
             return true;
         }
 
-        public async Task<PersonaDTO> get(PersonaByIdDTO request)
+        public async Task<PersonaBasicDTO> get(PersonaByIdDTO request)
         {
             Persona rowExists =  (from row in Repo.Entity where row.Id == request.Id select row).FirstOrDefault();
-            PersonaDTO response = rowExists.Clone<Persona, PersonaDTO>();
+            PersonaBasicDTO response = rowExists.Clone<Persona, PersonaBasicDTO>();
             return response;
         }
 
-        public async Task<ICollection<PersonaDTO>> getAll()
+        public async Task<ICollection<PersonaBasicDTO>> getAll()
         {
             ICollection<Persona> items =  (from rows in Repo.Entity select rows).ToList();
-            ICollection<PersonaDTO> response = items.Clone<Persona, PersonaDTO>();
+            ICollection<PersonaBasicDTO> response = items.Clone<Persona, PersonaBasicDTO>();
             return response;
         }
 
-        public async Task<PersonaDTO> update(PersonaPutPhotoDTO request)
+        public async Task<PersonaBasicDTO> update(PersonaPutPhotoDTO request)
         {
             Persona rowExists = (from row in Repo.Entity where row.Id == request.Id select row).FirstOrDefault();
             if(rowExists == null)
@@ -58,7 +64,7 @@ namespace Data.Implementations
             {
                 rowExists.UrlFoto = request.UrlFoto;
                 Persona responseToClone = await Repo.Put(rowExists);
-                PersonaDTO response = responseToClone.Clone<Persona, PersonaDTO>();
+                PersonaBasicDTO response = responseToClone.Clone<Persona, PersonaBasicDTO>();
                 return response;
             }
         }
