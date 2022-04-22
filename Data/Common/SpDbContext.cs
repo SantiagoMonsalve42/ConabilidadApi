@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 
 
-namespace Data.Common
+namespace Data.ModelData
 {
     public partial class SpDbContext
     {

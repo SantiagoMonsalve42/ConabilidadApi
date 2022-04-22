@@ -21,6 +21,8 @@ namespace Data.ModelData
         public long PersonaId { get; set; }
         [Column(TypeName = "numeric(18, 0)")]
         public decimal SaldoTotal { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime FechaApertura { get; set; }
 
         [ForeignKey("PersonaId")]
         [InverseProperty("Cuenta")]

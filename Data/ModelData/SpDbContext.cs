@@ -1,7 +1,9 @@
-﻿using Data.ModelData;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Data.Common
+namespace Data.ModelData
 {
     public partial class SpDbContext : DbContext
     {
@@ -22,16 +24,7 @@ namespace Data.Common
         public virtual DbSet<TiposDocumento> TiposDocumentos { get; set; } = null!;
         public virtual DbSet<TiposTelefono> TiposTelefonos { get; set; } = null!;
         public virtual DbSet<Transaccione> Transacciones { get; set; } = null!;
-        /*
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-        #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=.; Database=contabilidad;User Id=sa; Password=123456;");
-            }
-        }
-        */
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Cuentum>(entity =>
@@ -55,13 +48,13 @@ namespace Data.Common
             modelBuilder.Entity<PreguntasRespuesta>(entity =>
             {
                 entity.HasOne(d => d.IdPersonaNavigation)
-                    .WithMany()
+                    .WithMany(p => p.PreguntasRespuesta)
                     .HasForeignKey(d => d.IdPersona)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Preguntas_Respuestas_Persona");
 
                 entity.HasOne(d => d.IdPreguntaNavigation)
-                    .WithMany()
+                    .WithMany(p => p.PreguntasRespuesta)
                     .HasForeignKey(d => d.IdPregunta)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Preguntas_Respuestas_PreguntasSeguridad");

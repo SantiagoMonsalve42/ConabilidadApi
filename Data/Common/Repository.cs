@@ -1,4 +1,5 @@
 ﻿
+using Data.ModelData;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data.Common
@@ -63,6 +64,12 @@ namespace Data.Common
         public Task<int> Save()
         {
             return spDbContext.SaveChangesAsync();
+        }
+
+        public async Task<bool> DeleteRange(ICollection<TEntity> range)
+        {
+            spDbContext.RemoveRange(range);
+            return true;
         }
     }
 }

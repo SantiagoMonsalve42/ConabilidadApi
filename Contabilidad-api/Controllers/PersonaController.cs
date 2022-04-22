@@ -1,5 +1,6 @@
 ﻿using Bussiness.Interfaces;
 using DTO.Common.PersonaDTO;
+using DTO.Transport.PersonaDTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Contabilidad_api.Controllers
@@ -11,7 +12,7 @@ namespace Contabilidad_api.Controllers
 
         public PersonaController(IPersonaBussines personaBussines)
         {
-            PersonaBussines = personaBussines ?? throw new ArgumentNullException(nameof(personaBussines)); ;
+            PersonaBussines = personaBussines ?? throw new ArgumentNullException(nameof(personaBussines)); 
         }
 
         [HttpPost]
@@ -27,7 +28,7 @@ namespace Contabilidad_api.Controllers
             return await GetReponseAnswer(response);
         }
         [HttpPost]
-        public async Task<ActionResult> create(PersonaDTO request)
+        public async Task<ActionResult> create(PersonaCreateDTO request)
         {
             PersonaBasicDTO response = await PersonaBussines.create(request);
             return await GetReponseAnswer(response);

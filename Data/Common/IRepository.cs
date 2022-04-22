@@ -11,6 +11,7 @@ namespace Data.Common
         void Detached(TEntity entity);
         Task<TEntity> Put(TEntity entity);
         Task<TEntity> Delete(TEntity entity);
+        Task<bool> DeleteRange(ICollection<TEntity> range);
 
         IQueryable<TEntity> AsQueryable();
         Task<int> Save();

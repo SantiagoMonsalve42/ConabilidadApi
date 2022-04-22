@@ -1,8 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DTO.Transport.PreguntasDTO;
 
-namespace DTO.Common.PersonaDTO
+namespace DTO.Transport.PersonaDTO
 {
-    public class PersonaDTO
+    public class PersonaCreateDTO
     {
         public long Id { get; set; }
         public string Nombre1 { get; set; }
@@ -12,8 +12,8 @@ namespace DTO.Common.PersonaDTO
         public long IdTipoDocumento { get; set; }
         public string NumeroDocumento { get; set; }
         public string? UrlFoto { get; set; }
-        [EmailAddress]
         public string Email { get; set; }
         public string Password { get; set; }
+        public ICollection<RespuestasPreguntasCreateDTO> Preguntas { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Bussiness.Interfaces;
 using Data.Interfaces;
 using DTO.Common.PersonaDTO;
+using DTO.Transport.PersonaDTO;
 
 namespace Bussiness.Implementations
 {
@@ -13,7 +14,7 @@ namespace Bussiness.Implementations
             PersonaDAO = personaDAO ?? throw new ArgumentNullException(nameof(personaDAO)); ;
         }
 
-        public async Task<PersonaBasicDTO> create(PersonaDTO request)
+        public async Task<PersonaBasicDTO> create(PersonaCreateDTO request)
         {
             PersonaBasicDTO response = await PersonaDAO.create(request);
             return response;

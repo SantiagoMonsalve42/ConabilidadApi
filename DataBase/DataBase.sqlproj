@@ -58,6 +58,7 @@
     <Folder Include="Properties" />
     <Folder Include="dbo\" />
     <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Transacciones.sql" />
@@ -68,5 +69,6 @@
     <Build Include="dbo\Tables\Preguntas_Respuestas.sql" />
     <Build Include="dbo\Tables\Persona.sql" />
     <Build Include="dbo\Tables\Cuenta.sql" />
+    <Build Include="dbo\Stored Procedures\SaldoCuenta.sql" />
   </ItemGroup>
 </Project>

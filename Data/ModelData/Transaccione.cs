@@ -16,6 +16,9 @@ namespace Data.ModelData
         [StringLength(200)]
         [Unicode(false)]
         public string? Url { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime Fecha { get; set; }
+        public bool EsPositivo { get; set; }
 
         [ForeignKey("IdCuenta")]
         [InverseProperty("Transacciones")]
