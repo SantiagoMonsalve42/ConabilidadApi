@@ -1,6 +1,8 @@
 ﻿using Bussiness.Interfaces;
+using Common.Utilities;
 using DTO.Common.PersonaDTO;
 using DTO.Transport.PersonaDTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Contabilidad_api.Controllers
@@ -14,7 +16,14 @@ namespace Contabilidad_api.Controllers
         {
             PersonaBussines = personaBussines ?? throw new ArgumentNullException(nameof(personaBussines)); 
         }
-
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ActionResult> login(LoginDTO request)
+        {
+            bool isLogged = await PersonaBussines.login(request);
+            string token= (isLogged) ? JwtUtils.GenerateToken(request.email):null;
+            return await GetReponseAnswer(isLogged,token);
+        }
         [HttpPost]
         public async Task<ActionResult> getAll()
         {

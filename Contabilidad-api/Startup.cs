@@ -25,6 +25,7 @@ namespace Contabilidad_api
            });
             services.SwaggerConfigurationServices();
             services.RegisterDependecyInjectionConfig(Configuration);
+            services.JwtConfiguration();
             services.RegisterFiltersConfig();
         }
         public void Configure( IApplicationBuilder app, IWebHostEnvironment env, IExceptionHandle exceptionHandle)

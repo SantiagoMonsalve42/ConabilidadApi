@@ -27,7 +27,7 @@ namespace Data.Implementations
             Cuentum hasCreated = await RepoCuenta.CreateAsync(create);
             if (hasCreated != null)
             {
-                Transaccione firstTransaction = new Transaccione { IdCuenta = hasCreated.Id, ValorTransaccion = hasCreated.SaldoTotal, Fecha = DateTime.Now, EsPositivo= (hasCreated.SaldoTotal>=0)? true:false};
+                Transaccione firstTransaction = new Transaccione { IdCuenta = hasCreated.Id, ValorTransaccion = hasCreated.SaldoTotal, Fecha = DateTime.Now, EsPositivo= (hasCreated.SaldoTotal>=0)? true:false,IdTipoTransaccion=1,Descripcion="TRANSACCION INICIAL"};
                 await RepoTransacciones.CreateAsync(firstTransaction);
             }
             return hasCreated.Clone<Cuentum, CuentaDTO>();

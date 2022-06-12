@@ -10,5 +10,6 @@ namespace Bussiness.Interfaces
         Task<PersonaBasicDTO> update(PersonaPutPhotoDTO request);
         Task<bool> Delete(PersonaByIdDTO request);
         Task<PersonaBasicDTO> create(PersonaCreateDTO request);
+        Task<bool> login(LoginDTO request);
     }
 }

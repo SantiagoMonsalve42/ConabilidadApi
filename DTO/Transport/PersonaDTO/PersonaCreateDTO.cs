@@ -1,4 +1,5 @@
 ﻿using DTO.Transport.PreguntasDTO;
+using DTO.Transport.TelefonosDTO;
 
 namespace DTO.Transport.PersonaDTO
 {
@@ -15,5 +16,8 @@ namespace DTO.Transport.PersonaDTO
         public string Email { get; set; }
         public string Password { get; set; }
         public ICollection<RespuestasPreguntasCreateDTO> Preguntas { get; set; }
+
+        public ICollection<AgregarTelefonoDTO>? Telefonos { get; set; }
+        
     }
 }

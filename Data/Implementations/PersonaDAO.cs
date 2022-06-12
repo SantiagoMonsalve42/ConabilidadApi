@@ -65,6 +65,12 @@ namespace Data.Implementations
             return response;
         }
 
+        public async Task<bool> login(LoginDTO request)
+        {
+            request.password = Util.GetSHA256(request.password);
+            return await Repo.Entity.Select(x => x).Where(x => x.Email == request.email && x.Password == request.password).AnyAsync();
+        }
+
         public async Task<PersonaBasicDTO> update(PersonaPutPhotoDTO request)
         {
             Persona rowExists = (from row in Repo.Entity where row.Id == request.Id select row).FirstOrDefault();

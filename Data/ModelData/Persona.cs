@@ -13,6 +13,7 @@ namespace Data.ModelData
         {
             Cuenta = new HashSet<Cuentum>();
             PreguntasRespuesta = new HashSet<PreguntasRespuesta>();
+            TelefonosPersonas = new HashSet<TelefonosPersona>();
         }
 
         [Key]
@@ -54,5 +55,7 @@ namespace Data.ModelData
         public virtual ICollection<Cuentum> Cuenta { get; set; }
         [InverseProperty("IdPersonaNavigation")]
         public virtual ICollection<PreguntasRespuesta> PreguntasRespuesta { get; set; }
+        [InverseProperty("IdPersonaNavigation")]
+        public virtual ICollection<TelefonosPersona> TelefonosPersonas { get; set; }
     }
 }

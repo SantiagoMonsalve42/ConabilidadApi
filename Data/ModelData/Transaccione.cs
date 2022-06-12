@@ -19,9 +19,16 @@ namespace Data.ModelData
         [Column(TypeName = "datetime")]
         public DateTime Fecha { get; set; }
         public bool EsPositivo { get; set; }
+        [StringLength(256)]
+        [Unicode(false)]
+        public string Descripcion { get; set; } = null!;
+        public long IdTipoTransaccion { get; set; }
 
         [ForeignKey("IdCuenta")]
         [InverseProperty("Transacciones")]
         public virtual Cuentum IdCuentaNavigation { get; set; } = null!;
+        [ForeignKey("IdTipoTransaccion")]
+        [InverseProperty("Transacciones")]
+        public virtual TiposTransaccione IdTipoTransaccionNavigation { get; set; } = null!;
     }
 }

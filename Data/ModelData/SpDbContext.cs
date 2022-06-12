@@ -23,6 +23,7 @@ namespace Data.ModelData
         public virtual DbSet<TelefonosPersona> TelefonosPersonas { get; set; } = null!;
         public virtual DbSet<TiposDocumento> TiposDocumentos { get; set; } = null!;
         public virtual DbSet<TiposTelefono> TiposTelefonos { get; set; } = null!;
+        public virtual DbSet<TiposTransaccione> TiposTransacciones { get; set; } = null!;
         public virtual DbSet<Transaccione> Transacciones { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -62,14 +63,17 @@ namespace Data.ModelData
 
             modelBuilder.Entity<TelefonosPersona>(entity =>
             {
+                entity.HasKey(e => new { e.IdPersona, e.IdTipoTelefono })
+                    .HasName("PK__Telefono__C832B767F2D8E991");
+
                 entity.HasOne(d => d.IdPersonaNavigation)
-                    .WithMany()
+                    .WithMany(p => p.TelefonosPersonas)
                     .HasForeignKey(d => d.IdPersona)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Telefonos_persona_Persona");
 
                 entity.HasOne(d => d.IdTipoTelefonoNavigation)
-                    .WithMany()
+                    .WithMany(p => p.TelefonosPersonas)
                     .HasForeignKey(d => d.IdTipoTelefono)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Telefonos_persona_Tipos_Telefonos");
@@ -82,6 +86,12 @@ namespace Data.ModelData
                     .HasForeignKey(d => d.IdCuenta)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Transacciones_Cuenta");
+
+                entity.HasOne(d => d.IdTipoTransaccionNavigation)
+                    .WithMany(p => p.Transacciones)
+                    .HasForeignKey(d => d.IdTipoTransaccion)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Transacciones_TiposTransacciones");
             });
 
             OnModelCreatingPartial(modelBuilder);

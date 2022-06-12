@@ -70,5 +70,6 @@
     <Build Include="dbo\Tables\Persona.sql" />
     <Build Include="dbo\Tables\Cuenta.sql" />
     <Build Include="dbo\Stored Procedures\SaldoCuenta.sql" />
+    <Build Include="dbo\Tables\TiposTransacciones.sql" />
   </ItemGroup>
 </Project>

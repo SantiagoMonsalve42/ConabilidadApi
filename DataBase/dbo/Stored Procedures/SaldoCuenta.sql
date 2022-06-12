@@ -14,6 +14,5 @@ BEGIN
 		   SUM(CASE WHEN t.EsPositivo = 0 THEN t.ValorTransaccion ELSE 0 END) as pasivos
 		   FROM Transacciones t join Cuenta c
 		   on t.IdCuenta = c.Id
-		   join Persona p on c.PersonaId = p.Id
-		   where p.Id= @Id
+		   where c.Id= @Id
 END

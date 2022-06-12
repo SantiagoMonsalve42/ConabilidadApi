@@ -1,4 +1,6 @@
-﻿namespace DTO.Common.PersonaDTO
+﻿using DTO.Transport.TelefonosDTO;
+
+namespace DTO.Common.PersonaDTO
 {
     public class PersonaBasicDTO
     {
@@ -11,5 +13,6 @@
         public string NumeroDocumento { get; set; }
         public string? UrlFoto { get; set; }
         public string Email { get; set; }
+        public ICollection<AgregarTelefonoDTO>? Telefonos { get; set; }
     }
 }
