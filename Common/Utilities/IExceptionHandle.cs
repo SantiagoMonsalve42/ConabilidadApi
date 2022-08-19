@@ -4,6 +4,6 @@ namespace Common.Utilities
 {
     public interface IExceptionHandle
     {
-        HttpResponseDto<object> GenericException(Exception ex);
+        HttpResponseDto GenericException(Exception ex);
     }
 }

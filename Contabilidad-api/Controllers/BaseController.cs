@@ -1,5 +1,6 @@
 ﻿using Common.Utilities;
 using DTO.Common;
+using DTO.Transport.PersonaDTO;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -15,7 +16,7 @@ namespace Contabilidad_api.Controllers
     public class BaseController: Controller
     {
         private readonly string _bearerDef = "Bearer ";
-        protected string? Token 
+        protected RefreshTokenResponseDTO? Token 
         {
             get 
             {
@@ -27,18 +28,22 @@ namespace Contabilidad_api.Controllers
                 else
                 {
                     value = value.Replace(_bearerDef, "");
-                    return JwtUtils.ValidateToken(value);
+                    return new RefreshTokenResponseDTO
+                    {
+                        TokenSesion = JwtUtils.ValidateToken(value),
+                        Token512 = JwtUtils.GetSaltedEmailHash(value),
+                    };
                 }
                 
             }
             set { }
         }
-        protected async Task<ObjectResult> GetReponseAnswer<T>(T response, string? token=null)
+        protected async Task<ObjectResult> GetReponseAnswer(dynamic? response, dynamic? token=null)
         {
             return await Task.Run(
                 () =>
                 {
-                    return new ObjectResult(new HttpResponseDto<T> { Data = response,Token = (token!= null)?token: this.Token })
+                    return new ObjectResult(new HttpResponseDto { Data = response!=null? response :null,Token = token !=null?token:null})
                     { StatusCode = (int)HttpStatusCode.OK };
                 });
         }

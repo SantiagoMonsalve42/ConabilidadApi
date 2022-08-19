@@ -18,6 +18,7 @@ namespace Data.ModelData
 
         public virtual DbSet<Cuentum> Cuenta { get; set; } = null!;
         public virtual DbSet<Persona> Personas { get; set; } = null!;
+        public virtual DbSet<PersonaSesion> PersonaSesions { get; set; } = null!;
         public virtual DbSet<PreguntasRespuesta> PreguntasRespuestas { get; set; } = null!;
         public virtual DbSet<PreguntasSeguridad> PreguntasSeguridads { get; set; } = null!;
         public virtual DbSet<TelefonosPersona> TelefonosPersonas { get; set; } = null!;
@@ -25,6 +26,7 @@ namespace Data.ModelData
         public virtual DbSet<TiposTelefono> TiposTelefonos { get; set; } = null!;
         public virtual DbSet<TiposTransaccione> TiposTransacciones { get; set; } = null!;
         public virtual DbSet<Transaccione> Transacciones { get; set; } = null!;
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -44,6 +46,15 @@ namespace Data.ModelData
                     .HasForeignKey(d => d.IdTipoDocumento)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Persona_Tipos_documentos");
+            });
+
+            modelBuilder.Entity<PersonaSesion>(entity =>
+            {
+                entity.HasOne(d => d.IdPersonaNavigation)
+                    .WithMany(p => p.PersonaSesions)
+                    .HasForeignKey(d => d.IdPersona)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PersonaSesion_Persona");
             });
 
             modelBuilder.Entity<PreguntasRespuesta>(entity =>

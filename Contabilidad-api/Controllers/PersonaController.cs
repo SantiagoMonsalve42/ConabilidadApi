@@ -20,9 +20,8 @@ namespace Contabilidad_api.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> login(LoginDTO request)
         {
-            bool isLogged = await PersonaBussines.login(request);
-            string token= (isLogged) ? JwtUtils.GenerateToken(request.email):null;
-            return await GetReponseAnswer(isLogged,token);
+            RefreshTokenResponseDTO token = await PersonaBussines.login(request);
+            return await GetReponseAnswer(null, token);
         }
         [HttpPost]
         public async Task<ActionResult> getAll()
@@ -40,7 +39,7 @@ namespace Contabilidad_api.Controllers
         public async Task<ActionResult> create(PersonaCreateDTO request)
         {
             PersonaBasicDTO response = await PersonaBussines.create(request);
-            return await GetReponseAnswer(response);
+            return await GetReponseAnswer(response, null);
         }
         [HttpPut]
         public async Task<ActionResult> put(PersonaPutPhotoDTO request,long id)
@@ -50,13 +49,13 @@ namespace Contabilidad_api.Controllers
                 return BadRequest("Los ids no coinciden");
             }
             PersonaBasicDTO response = await PersonaBussines.update(request);
-            return await GetReponseAnswer(response);
+            return await GetReponseAnswer(response, null);
         }
         [HttpDelete]
         public async Task<ActionResult> delete(PersonaByIdDTO request)
         {
             bool response = await PersonaBussines.Delete(request);
-            return await GetReponseAnswer(response);
+            return await GetReponseAnswer(response, null);
         }
     }
 }

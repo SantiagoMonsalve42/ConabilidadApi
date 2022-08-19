@@ -16,7 +16,7 @@ namespace Contabilidad_api.App_Start
                     context.Response.ContentType = "application/json";
                     IExceptionHandlerFeature contextFeature = context.Features.Get<IExceptionHandlerFeature>();
 
-                    HttpResponseDto<object> httpResponseErrorDto = exceptionHandle.GenericException(contextFeature.Error);
+                    HttpResponseDto httpResponseErrorDto = exceptionHandle.GenericException(contextFeature.Error);
                     HttpStatusCode Code = HttpStatusCode.InternalServerError;
                     if (Enum.IsDefined(typeof(HttpStatusCode), contextFeature.Error.HResult)) Code = (HttpStatusCode)contextFeature.Error.HResult;
                     context.Response.StatusCode = (int)Code;

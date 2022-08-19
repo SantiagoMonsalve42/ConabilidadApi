@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Contabilidad_api.Filters
 {
-    public class ValidationResultModel : HttpResponseDto<ICollection<ValidationError>>
+    public class ValidationResultModel : HttpResponseDto
     {
         public ValidationResultModel(ModelStateDictionary modelState)
         {

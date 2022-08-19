@@ -15,7 +15,7 @@ namespace Contabilidad_api.Controllers
         [HttpPost]
         public async Task<ActionResult> getTypes()
         {
-            return await GetReponseAnswer(await TelefonoBussines.getAll());
+            return await GetReponseAnswer(await TelefonoBussines.getAll(),null);
         }
         [HttpPut]
         public async Task<ActionResult> put(EditarTelefonoDTO request)

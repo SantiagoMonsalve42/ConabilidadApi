@@ -30,6 +30,7 @@ namespace Contabilidad_api.App_Start
             services.AddScoped(typeof(ITelefonoBussines), typeof(TelefonoBussines));
             services.AddScoped(typeof(ITiposTransaccionesBussines), typeof(TiposTransaccionesBussines));
             services.AddScoped(typeof(ITransaccionesBussines), typeof(TransaccionesBussines));
+            services.AddScoped(typeof(IPersonaSesionBussines), typeof(PersonaSesionBussines));
             //DATA ACCESS OBJECTS
             services.AddScoped(typeof(IPersonaDAO), typeof(PersonaDAO));
             services.AddScoped(typeof(ICuentaDAO), typeof(CuentaDAO));
@@ -38,6 +39,7 @@ namespace Contabilidad_api.App_Start
             services.AddScoped(typeof(ITelefonosDAO), typeof(TelefonosDAO));
             services.AddScoped(typeof(ITiposTransaccionesDAO), typeof(TiposTransaccionesDAO));
             services.AddScoped(typeof(ITransaccionesDAO), typeof(TransaccionesDAO));
+            services.AddScoped(typeof(IPersonaSesionDAO), typeof(PersonaSesionDAO));
         }
     }
 }

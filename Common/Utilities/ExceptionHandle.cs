@@ -11,10 +11,10 @@ namespace Common.Utilities
             logger = _logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public HttpResponseDto<object> GenericException(Exception ex)
+        public HttpResponseDto GenericException(Exception ex)
         {
             _ = logger.setError(ex);
-            return new HttpResponseDto<object>()
+            return new HttpResponseDto()
             {
                 Data = null,
                 Error = ex.Message

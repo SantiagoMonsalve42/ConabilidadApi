@@ -1,6 +1,7 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Common.Utilities
@@ -14,11 +15,20 @@ namespace Common.Utilities
             var llave = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(HelperConfiguration.GetParam("JWTKey")));
             var creds = new SigningCredentials(llave, SecurityAlgorithms.HmacSha256);
 
-            var expiracion = DateTime.UtcNow.AddHours(5);
+            var expiracion = DateTime.UtcNow.AddMinutes(2);
 
             var securityToken = new JwtSecurityToken(issuer: null, audience: null, claims: claims,
                 expires: expiracion, signingCredentials: creds);
             return new JwtSecurityTokenHandler().WriteToken(securityToken);
+        }
+        public static string GetSaltedEmailHash(string username)
+        {
+            // byte[] salt = BitConverter.GetBytes(userId);
+            byte[] salt = Encoding.UTF8.GetBytes(username);
+            byte[] saltedPassword = new byte[salt.Length];
+            Buffer.BlockCopy(salt, 0, saltedPassword, salt.Length, salt.Length);
+            SHA1 sha = SHA1.Create();
+            return sha.ComputeHash(saltedPassword).ToString();
         }
 
         public static string? ValidateToken(string token)

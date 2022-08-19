@@ -7,6 +7,8 @@ namespace Data.Interfaces
     {
         Task<ICollection<PersonaBasicDTO>> getAll();
         Task<PersonaBasicDTO> get(PersonaByIdDTO request);
+
+        Task<PersonaBasicDTO> getByEmail(PersonaByEmailDTO request);
         Task<PersonaBasicDTO> update(PersonaPutPhotoDTO request);
         Task<bool> Delete(PersonaByIdDTO request);
         Task<PersonaBasicDTO> create(PersonaCreateDTO request);

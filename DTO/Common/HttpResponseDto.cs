@@ -1,9 +1,9 @@
 ﻿namespace DTO.Common
 {
-    public class HttpResponseDto<TModel>
+    public class HttpResponseDto
     {
-        public TModel Data { get; set; }
+        public dynamic? Data { get; set; }
         public string Error { get; set; }
-        public string? Token { get; set; }
+        public dynamic? Token { get; set; }
     }
 }

@@ -14,12 +14,14 @@ namespace Data.Implementations
         #region props
         private readonly IRepository<Persona> Repo;
         private readonly IRepository<PreguntasRespuesta> RepoRespuestas;
+        private readonly IRepository<PersonaSesion> RepoSesion;
         #endregion
         #region ctor
-        public PersonaDAO(IRepository<Persona> repo, IRepository<PreguntasRespuesta> repoRespuestas)
+        public PersonaDAO(IRepository<Persona> repo, IRepository<PreguntasRespuesta> repoRespuestas, IRepository<PersonaSesion> repoSesion)
         {
             Repo = repo ?? throw new ArgumentNullException(nameof(repo));
             RepoRespuestas = repoRespuestas ?? throw new ArgumentNullException(nameof(repoRespuestas));
+            RepoSesion = repoSesion ?? throw new ArgumentNullException(nameof(repoSesion));
         }
         #endregion
         #region METHODS
@@ -65,10 +67,43 @@ namespace Data.Implementations
             return response;
         }
 
+        public async Task<PersonaBasicDTO> getByEmail(PersonaByEmailDTO request)
+        {
+            Persona rowExists = (from row in Repo.Entity where row.Email == request.Email select row).FirstOrDefault();
+            PersonaBasicDTO response = rowExists.Clone<Persona, PersonaBasicDTO>();
+            return response;
+        }
+
         public async Task<bool> login(LoginDTO request)
         {
             request.password = Util.GetSHA256(request.password);
-            return await Repo.Entity.Select(x => x).Where(x => x.Email == request.email && x.Password == request.password).AnyAsync();
+            Persona exist = await Repo.Entity.Select(x => x).Where(x => x.Email == request.email && x.Password == request.password).FirstOrDefaultAsync();
+            if (exist != null)
+            {
+                PersonaSesion existsFirstLog = await RepoSesion.Entity.Select(x => x).Where(x => x.IdPersona == exist.Id ).FirstOrDefaultAsync();
+                if(existsFirstLog == null)
+                {
+                    PersonaSesion firstLog = await RepoSesion.CreateAsync(new PersonaSesion
+                    {
+                        IdPersona = exist.Id,
+                        Hora = DateTime.Now,
+                        Token512 = "init",
+                        TokenSesion = "init",
+                    });
+                }
+                else
+                {
+                    PersonaSesion firstLog = await RepoSesion.CreateAsync(new PersonaSesion
+                    {
+                        IdPersona = exist.Id,
+                        Hora = DateTime.Now,
+                        Token512 = Util.GetSHA256(exist.Email+Util.getCurrentDateString()),
+                        TokenSesion = JwtUtils.GenerateToken(exist.Email),
+                    });
+                }
+                return true;
+            }
+            return false;
         }
 
         public async Task<PersonaBasicDTO> update(PersonaPutPhotoDTO request)
@@ -89,3 +124,4 @@ namespace Data.Implementations
         #endregion
     }
 }
+
